@@ -1,0 +1,55 @@
+Estas funciones fueron subidas por la profesora Irene Zuccar Parrini a la página: http://dme.unab.cl/pregrado2/course/view.php?id=28602
+Las funciones fueron modificadas para su utilizacion en el Enunciado1.c
+---------------------------------------------------------------------------------------------------------------------------------------
+Lista InsertarOrdenada(Lista L, Tipo_dato x) {
+   Lista pNodo, aux1, aux2;
+    
+   pNodo = CreaNodo(x);
+   SI (L == NULL) ENTONCES  //0 Nodos.
+       L = pNodo;
+   SINO
+       SI (x < L->info) ENTONCES//Inserta al principio de L.
+        { 
+           pNodo->sig = L;
+           L = pNodo;
+         }
+       SINO {		//2 ó más Nodos.
+         aux1 = L;
+         MIENTRAS (aux1  NULL) HACER {
+            SI (aux1->info < x) ENTONCES 
+               aux1 = aux1->sig;
+            SINO
+               break;        //sale del ciclo 
+           }
+         aux2 = L;        
+         MIENTRAS (aux2->sig  aux1) HACER 
+            aux2 = aux2->sig;
+         
+         aux2->sig = pNodo;
+         pNodo->sig = aux1;
+         aux1 = NULL;
+         aux2 = NULL; 
+       }
+    }
+   pNodo = NULL;
+   RETORNAR L;
+---------------------------------------------------------------------------------------------------------------------------------------
+Lista Lista_CREA_NODO(int valor)
+{
+    Lista aux;
+
+    aux = (Lista)malloc(sizeof(tNodo));
+    if (aux != NULL)
+    {
+        aux->info = valor;
+        aux->sig = NULL;
+    }
+    else
+    {
+        system("cls");
+        printf("\n\tERROR: No hay memoria suficiente para generar un nuevo Nodo.");
+        printf("\n\tEste programa se cerrar%c.", 160);
+        exit(1);
+    }
+    return aux;
+}
